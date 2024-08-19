@@ -1,0 +1,17 @@
+---
+- name: Configure VLAN Pool in Cisco ACI
+  hosts: aci
+  gather_facts: no
+  tasks:
+    - name: Add a new VLAN pool
+      cisco.aci.aci_vlan_pool:
+        host: "{{ inventory_hostname }}"
+        username: "{{ ansible_user }}"
+        password: "{{ ansible_password }}"
+        pool: "{{ vlan_pool }}"
+        pool_allocation_mode: "{{ vlan_pool_allocation_mode }}"
+        description: "{{ vlan_pool_description }}"
+        state: present
+      vars:
+        ansible_python_interpreter: /usr/bin/python3
+      delegate_to: localhost
