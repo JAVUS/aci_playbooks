@@ -1,3 +1,4 @@
+---
 - name: Add a new VLAN pool
   cisco.aci.aci_vlan_pool:
     host: apic
