@@ -1,1 +1,30 @@
-hello
+---
+- name: Configure VLAN Pool in Cisco ACI
+  hosts: aci
+  gather_facts: no
+  tasks:
+    - name: Prepare VLAN pool payload
+      set_fact:
+        vlan_pool_payload:
+          host: "{{ apic_host }}"
+          username: "{{ apic_username }}"
+          password: "{{ apic_password }}"
+          pool: "{{ vlan_pool }}"
+          pool_allocation_mode: "{{ vlan_pool_allocation_mode }}"
+          state: present
+
+    - name: Show the payload in the terminal
+      debug:
+        var: vlan_pool_payload
+
+    - name: Add a new VLAN pool
+      cisco.aci.aci_vlan_pool:
+        host: "{{ vlan_pool_payload.host }}"
+        username: "{{ vlan_pool_payload.username }}"
+        password: "{{ vlan_pool_payload.password }}"
+        pool: "{{ vlan_pool_payload.pool }}"
+        pool_allocation_mode: "{{ vlan_pool_payload.pool_allocation_mode }}"
+        state: present
+      delegate_to: localhost
+      vars:
+        ansible_python_interpreter: /usr/bin/python3
