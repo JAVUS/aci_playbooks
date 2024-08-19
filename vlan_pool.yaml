@@ -1,11 +1,17 @@
 ---
-- name: Add a new VLAN pool
-  cisco.aci.aci_vlan_pool:
-    host: apic
-    username: admin
-    password: Cisco123
-    pool: production
-    pool_allocation_mode: static
-    description: Production VLANs
-    state: present
-  delegate_to: localhost
+- name: Configure VLAN Pool in Cisco ACI
+  hosts: aci
+  gather_facts: no
+  tasks:
+    - name: Add a new VLAN pool
+      cisco.aci.aci_vlan_pool:
+        host: "192.168.0.45"
+        username: "admin"
+        password: "Cisco123"
+        pool: "nueva"
+        pool_allocation_mode: "static"
+        description: "test"
+        state: present
+      vars:
+        ansible_python_interpreter: /usr/bin/python3
+      delegate_to: localhost
