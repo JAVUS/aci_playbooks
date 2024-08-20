@@ -20,7 +20,7 @@
         var: apic_tenant_list
 
     - name: Create Tenant REST
-      aci_rest:
+      cisco.aci.aci_rest:
         host: "{{ apic }}"
         user: "{{ username }}"
         password: "{{ password }}"
