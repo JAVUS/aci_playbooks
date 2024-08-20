@@ -1,0 +1,21 @@
+---
+- name: Crear VLAN Pool en Cisco ACI
+  hosts: localhost
+  gather_facts: no
+  tasks:
+    - name: Crear VLAN Pool
+      cisco.aci.aci_vlan_pool:
+        host: "{{ ansible_host }}"
+        username: "{{ ansible_user }}"
+        password: "{{ ansible_password }}"
+        validate_certs: no
+        vlan_pool: "MyVlanPool"
+        allocation_mode: "static"  # Puede ser 'static' o 'dynamic'
+        from_vlan: 100
+        to_vlan: 110
+        state: present
+
+      vars:
+        ansible_host: "192.168.0.45"
+        ansible_user: "admin"
+        ansible_password: "Cisco123"
