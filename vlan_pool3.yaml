@@ -15,7 +15,7 @@
         to_vlan: 110
         state: present
 
-      vars:
-        ansible_host: "192.168.0.45"
-        ansible_user: "admin"
-        ansible_password: "Cisco123"
+  vars:
+    ansible_host: "192.168.0.45"
+    ansible_user: "admin"
+    ansible_password: "Cisco123"
