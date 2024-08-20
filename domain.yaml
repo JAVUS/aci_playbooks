@@ -1,0 +1,8 @@
+- name: Add a new physical domain
+  cisco.aci.aci_domain:
+    host: apic
+    username: admin
+    password: SomeSecretPassword
+    domain: phys_dom
+    domain_type: phys
+    state: present
