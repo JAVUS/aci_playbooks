@@ -4,7 +4,7 @@
   connection: local
   gather_facts: no
   collections: 
-    - cisco.aci.aci_rest
+    - cisco.aci
   vars:
     apic_host: "{{ lookup('env', 'APIC_HOST') }}"
     apic_username: "{{ lookup('env', 'APIC_USERNAME') }}"
