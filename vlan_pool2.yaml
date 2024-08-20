@@ -4,7 +4,7 @@
   connection: local
   gather_facts: no
   collections: 
-   - cisco.aci
+    - cisco.aci.aci_rest
   vars:
     apic_host: "{{ lookup('env', 'APIC_HOST') }}"
     apic_username: "{{ lookup('env', 'APIC_USERNAME') }}"
@@ -17,7 +17,7 @@
 
   tasks:
     - name: Create VLAN Pool in Cisco ACI
-      aci_rest:
+      cisco.aci.aci_rest:
         host: "{{ apic_host }}"
         username: "{{ apic_username }}"
         password: "{{ apic_password }}"
