@@ -1,17 +1,40 @@
 ---
 - name: Configure VLAN Pool in Cisco ACI
-  hosts: aci
+  hosts: localhost
+  connection: local
   gather_facts: no
+
+  vars:
+    apic_host: "{{ lookup('env', 'APIC_HOST') }}"
+    apic_username: "{{ lookup('env', 'APIC_USERNAME') }}"
+    apic_password: "{{ lookup('env', 'APIC_PASSWORD') }}"
+    vlan_pool_name: "My_VLAN_Pool"
+    vlan_pool_allocation_mode: "static"  # Puede ser 'static' o 'dynamic'
+    vlan_range_start: 100
+    vlan_range_end: 120
+    vlan_pool_description: "VLAN Pool managed by Ansible Tower"
+
   tasks:
-    - name: Add a new VLAN pool
-      cisco.aci.aci_vlan_pool:
-        host: "{{ inventory_hostname }}"
-        username: "{{ ansible_user }}"
-        password: "{{ ansible_password }}"
-        pool: "{{ vlan_pool }}"
-        pool_allocation_mode: "{{ vlan_pool_allocation_mode }}"
-        description: "{{ vlan_pool_description }}"
-        state: present
-      vars:
-        ansible_python_interpreter: /usr/bin/python3
-      delegate_to: localhost
+    - name: Create VLAN Pool in Cisco ACI
+      cisco.aci.aci_rest:
+        host: "{{ apic_host }}"
+        username: "{{ apic_username }}"
+        password: "{{ apic_password }}"
+        validate_certs: no
+        path: "/api/mo/uni/infra/vlanns-[{{ vlan_pool_name }}]-{{ vlan_pool_allocation_mode }}.json"
+        method: post
+        content:
+          fvnsVlanInstP:
+            attributes:
+              allocMode: "{{ vlan_pool_allocation_mode }}"
+              name: "{{ vlan_pool_name }}"
+              descr: "{{ vlan_pool_description }}"
+            children:
+              - fvnsEncapBlk:
+                  attributes:
+                    from: "vlan-{{ vlan_range_start }}"
+                    to: "vlan-{{ vlan_range_end }}"
+
+    - name: Show VLAN Pool Creation Info
+      debug:
+        msg: "VLAN Pool '{{ vlan_pool_name }}' created with range {{ vlan_range_start }} to {{ vlan_range_end }}."
