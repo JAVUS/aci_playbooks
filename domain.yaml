@@ -1,8 +1,39 @@
-- name: Add a new physical domain
-  cisco.aci.aci_domain:
-    host: apic
-    username: admin
-    password: SomeSecretPassword
-    domain: phys_dom
-    domain_type: phys
-    state: present
+---
+- name: Configure Domain in Cisco ACI
+  hosts: localhost
+  connection: local
+  gather_facts: no
+
+  vars:
+    apic_host: "{{ lookup('env', 'APIC_HOST') }}"
+    apic_username: "{{ lookup('env', 'APIC_USERNAME') }}"
+    apic_password: "{{ lookup('env', 'APIC_PASSWORD') }}"
+    domain_name: "My_Physical_Domain"
+    vlan_pool_name: "My_VLAN_Pool"
+    aaep_name: "My_AAEP_Profile"
+    domain_type: "phys"  # Puede ser 'phys' para un dominio físico, 'l2ext' o 'l3ext' para L2 o L3
+
+  tasks:
+    - name: Create Physical Domain in Cisco ACI
+      cisco.aci.aci_rest:
+        host: "{{ apic_host }}"
+        username: "{{ apic_username }}"
+        password: "{{ apic_password }}"
+        validate_certs: no
+        path: "/api/mo/uni/phys-{{ domain_name }}.json"
+        method: post
+        content:
+          physDomP:
+            attributes:
+              name: "{{ domain_name }}"
+            children:
+              - infraRsVlanNs:
+                  attributes:
+                    tDn: "uni/infra/vlanns-[{{ vlan_pool_name }}]-static"
+              - infraRsDomAtt:
+                  attributes:
+                    tDn: "uni/infra/attentp-{{ aaep_name }}"
+
+    - name: Show Domain Configuration Info
+      debug:
+        msg: "Domain '{{ domain_name }}' created and associated with VLAN Pool '{{ vlan_pool_name }}' and AAEP '{{ aaep_name }}'."
