@@ -1,0 +1,38 @@
+---
+- name: CREATE TENANTS - REST
+  hosts: "{{ apic }}"
+  connection: local
+  gather_facts: False
+
+  vars:
+    tenant_list:
+      - Bank_Test
+      - Bank_Prod
+
+  tasks:
+
+    - name: BUILD Tenant List
+      set_fact:
+        apic_tenant_list: "{{ tenant_list }}"
+
+    - name: PRINT Tenant List vars
+      debug:
+        var: apic_tenant_list
+
+    - name: Create Tenant REST
+      aci_rest:
+        host: "{{ apic }}"
+        user: "{{ username }}"
+        password: "{{ password }}"
+        validate_certs: False
+
+        path: /api/mo/uni.json
+        method: post
+        content:
+          fvTenant:
+            attributes:
+              name: "{{ item }}"
+              descr: "{{ item }} - Tenant managed by Ansible AWX"
+
+      delegate_to: localhost
+      loop: "{{ tenant_list }}"
