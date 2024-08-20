@@ -3,7 +3,8 @@
   hosts: localhost
   connection: local
   gather_facts: no
-
+  collections: 
+   - cisco.aci.aci_rest
   vars:
     apic_host: "{{ lookup('env', 'APIC_HOST') }}"
     apic_username: "{{ lookup('env', 'APIC_USERNAME') }}"
