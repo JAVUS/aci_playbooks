@@ -17,7 +17,7 @@
 
   tasks:
     - name: Create VLAN Pool in Cisco ACI
-      cisco.aci.aci_rest:
+      aci_rest:
         host: "{{ apic_host }}"
         username: "{{ apic_username }}"
         password: "{{ apic_password }}"
