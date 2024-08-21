@@ -18,8 +18,4 @@
       delegate_to: localhost
 
 # Variables (pueden definirse en un archivo de inventario o group_vars/host_vars)
-vars:
-  apic_host: apic_ip_address
-  apic_username: admin
-  apic_password: SomeSecretPassword
-  vlan_pool_name: Example_V
+
