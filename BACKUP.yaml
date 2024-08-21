@@ -1,9 +1,0 @@
-- hosts: {{NXOS1}}
-  gather_facts: false
-
-  tasks:
-   - name: Show Run on Device
-     nxos_command:
-       commands:
-          - show run
-     register: config

@@ -1,0 +1,21 @@
+---
+- name: Configurar AAEP en Cisco ACI
+  hosts: localhost
+  connection: local
+  gather_facts: no
+  tasks:
+    - name: Configurar el AAEP
+      cisco.aci.aci_aaep:
+        host: "{{ apic_host }}"
+        username: "{{ apic_username }}"
+        password: "{{ apic_password }}"
+        validate_certs: no
+        aaep: "{{ aaep_name }}"
+        description: "{{ aaep_description }}"
+        domains:
+          - name: "{{ domain_name }}"
+            domain_type: "{{ domain_type }}" # Valores posibles: 'phys', 'vmm', 'l2ext', 'l3ext', 'fc'
+        state: present
+      delegate_to: localhost
+
+
