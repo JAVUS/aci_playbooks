@@ -1,4 +1,8 @@
 ---
+- name: Show installed collections
+  ansible.builtin.command: ansible-galaxy collection list
+  changed_when: false
+  
 - name: Create a Tenant, App profile, VRF, Bridge Domain, and 10 EPGs
   hosts: localhost
   gather_facts: false
