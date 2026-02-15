@@ -34,7 +34,7 @@
 
   tasks:
   - name: Create a tenant
-    aci_tenant:
+    cisco.aci.aci_tenant:
       host: "{{ aci_host }}"
       username: "{{ aci_username }}"
       password: "{{ aci_password }}"
@@ -44,7 +44,7 @@
       validate_certs: false
 
   - name: Add a new AP
-    aci_ap:
+    cisco.aci.aci_ap:
       host: "{{ aci_host }}"
       username: "{{ aci_username }}"
       password: "{{ aci_password }}"
@@ -55,7 +55,7 @@
       validate_certs: false
 
   - name: Add a new VRF to a tenant
-    aci_vrf:
+    cisco.aci.aci_vrf:
       host: "{{ aci_host }}"
       username: "{{ aci_username }}"
       password: "{{ aci_password }}"
@@ -68,7 +68,7 @@
       validate_certs: false
 
   - name: Add Bridge Domain
-    aci_bd:
+    cisco.aci.aci_bd:
       host: "{{ aci_host }}"
       username: "{{ aci_username }}"
       password: "{{ aci_password }}"
@@ -79,7 +79,7 @@
       validate_certs: false
 
   - name: Add new EPGs
-    aci_epg:
+    cisco.aci.aci_epg:
       host: "{{ aci_host }}"
       username: "{{ aci_username }}"
       password: "{{ aci_password }}"
