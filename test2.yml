@@ -1,16 +1,23 @@
 - name: Debug Environment
   hosts: localhost
-  gather_facts: false
+  gather_facts: true  # Changed to true to get environment info
   tasks:
-    - name: List available collection paths
-      debug:
-        msg: "{{ ansible_collections_paths }}"
+    - name: Show current working directory
+      command: pwd
+      register: pwd_out
 
-    - name: Check if collections folder exists
-      command: ls -R ./collections
-      register: ls_output
+    - name: List files in project root
+      command: ls -F
+      register: ls_root
+
+    - name: Check if collections folder exists and show content
+      command: ls -R collections
+      register: ls_coll
       ignore_errors: true
 
-    - name: Show ls output
+    - name: Final Report
       debug:
-        var: ls_output.stdout_lines
+        msg: 
+          - "Current Dir: {{ pwd_out.stdout }}"
+          - "Files in Root: {{ ls_root.stdout_lines }}"
+          - "Collections Found: {{ ls_coll.stdout_lines }}"
