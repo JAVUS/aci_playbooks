@@ -1,6 +1,8 @@
 ---
 - name: Playbook Cisco ACI
   hosts: all
+  # On the lag the host is aci_host
+  #hosts: aci_host
   gather_facts: false
   
   # This makes Ansible look for the collection without depending on .cfg file
@@ -10,8 +12,8 @@
   tasks:
     - name: Create new tenant on ACI
       cisco.aci.aci_tenant:
-        host: "{{ aci_host }}"
-        username: "{{ aci_user }}"
+        host: "{{ aci_ip }}"
+        username: "{{ aci_username }}" 
         password: "{{ aci_password }}"
         tenant: "Tenant_Ansible_AWX"
         description: "Created via Ansible AWX"
