@@ -8,12 +8,12 @@
     - cisco.aci
 
   tasks:
-    - name: Crear un nuevo Tenant en ACI
+    - name: Create new tenant on ACI
       cisco.aci.aci_tenant:
         host: "{{ aci_host }}"
         username: "{{ aci_user }}"
         password: "{{ aci_password }}"
-        tenant: "Tenant_Nueva_Org"
-        description: "Created via Ansible AWX - Project [Cloud Repo]"
+        tenant: "Tenant_Ansible_AWX"
+        description: "Created via Ansible AWX"
         state: present
         validate_certs: false
