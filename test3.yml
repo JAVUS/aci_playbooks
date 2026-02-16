@@ -3,20 +3,16 @@
   hosts: localhost
   gather_facts: false
   
-  # Forzamos la colección y definimos variables de entorno para las rutas
+  # Esto fuerza a Ansible a buscar en la colección sin depender del cfg
   collections:
     - cisco.aci
 
   tasks:
-    - name: Debug de rutas (para ver donde está buscando realmente)
-      debug:
-        msg: "Buscando en: {{ lookup('env', 'ANSIBLE_COLLECTIONS_PATHS') }}"
-
     - name: Crear un nuevo Tenant en ACI
       cisco.aci.aci_tenant:
         host: "{{ aci_host }}"
         username: "{{ aci_user }}"
         password: "{{ aci_password }}"
-        tenant: "Test_New_Org"
+        tenant: "Tenant_Nueva_Org"
         state: present
         validate_certs: false
