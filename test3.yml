@@ -14,5 +14,6 @@
         username: "{{ aci_user }}"
         password: "{{ aci_password }}"
         tenant: "Tenant_Nueva_Org"
+        description: "Tenant created from Ansible AWX"
         state: present
         validate_certs: false
