@@ -1,0 +1,18 @@
+---
+- name: Playbook para Cisco ACI
+  hosts: localhost
+  gather_facts: false
+  
+  # ESTA ES LA CLAVE: Fuerza a Ansible a buscar en la colección específica
+  collections:
+    - cisco.aci
+
+  tasks:
+    - name: Crear un nuevo Tenant en ACI
+      cisco.aci.aci_tenant: # Usa el FQCN (nombre completo)
+        host: "{{ aci_host }}"
+        username: "{{ aci_user }}"
+        password: "{{ aci_password }}"
+        tenant: "Tenant_Test_Org"
+        state: present
+        validate_certs: false
