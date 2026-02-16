@@ -1,0 +1,18 @@
+---
+- name: Playbook Cisco ACI - Cleanup
+  hosts: localhost
+  gather_facts: false
+  
+  # This makes Ansible look for the collection without depending on cfg file
+  collections:
+    - cisco.aci
+
+  tasks:
+    - name: Delete tenant on ACI
+      cisco.aci.aci_tenant:
+        host: "{{ aci_host }}"
+        username: "{{ aci_user }}"
+        password: "{{ aci_password }}"
+        tenant: "Tenant_Ansible_AWX"
+        state: absent           # This is the key change to delete the object
+        validate_certs: false
