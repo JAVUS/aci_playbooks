@@ -1,6 +1,6 @@
 ---
 - name: Playbook Cisco ACI
-  hosts: localhost
+  hosts: cisco_apic
   gather_facts: false
   
   # This makes Ansible look for the collection without depending on .cfg file
