@@ -1,0 +1,16 @@
+- name: Debug Environment
+  hosts: localhost
+  gather_facts: false
+  tasks:
+    - name: List available collection paths
+      debug:
+        msg: "{{ ansible_collections_paths }}"
+
+    - name: Check if collections folder exists
+      command: ls -R ./collections
+      register: ls_output
+      ignore_errors: true
+
+    - name: Show ls output
+      debug:
+        var: ls_output.stdout_lines
