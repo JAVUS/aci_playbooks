@@ -1,6 +1,6 @@
 ---
 - name: Playbook Cisco ACI - Cleanup
-  hosts: all
+  hosts: aci_host
   gather_facts: false
   # This makes Ansible look for the collection without depending on cfg file
   collections:
