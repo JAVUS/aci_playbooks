@@ -1,7 +1,7 @@
 ---
 - name: Playbook Cisco ACI
   hosts: all
-  # On the lag the host is aci_host
+  # On the lab the host is aci_host
   #hosts: aci_host
   gather_facts: false
   
