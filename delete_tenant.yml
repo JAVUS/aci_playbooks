@@ -9,9 +9,9 @@
   tasks:
     - name: Delete tenant on ACI
       cisco.aci.aci_tenant:
-        host: "{{ ansible_host }}"
-        username: "{{ username }}" 
-        password: "{{ password }}"
+    #    host: "{{ ansible_host }}"
+    #    username: "{{ username }}" 
+    #    password: "{{ password }}"
         tenant: "Tenant_Ansible_AWX"
         state: absent
         validate_certs: false
