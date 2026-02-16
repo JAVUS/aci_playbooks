@@ -3,7 +3,7 @@
   hosts: localhost
   gather_facts: false
   
-  # Esto fuerza a Ansible a buscar en la colección sin depender del cfg
+  # This makes Ansible look for the collection without depending on cfg file
   collections:
     - cisco.aci
 
