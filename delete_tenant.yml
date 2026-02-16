@@ -1,6 +1,8 @@
 ---
 - name: Playbook Cisco ACI - Cleanup
-  hosts: aci_host
+  hosts: all
+  # On the lag the host is aci_host
+  #hosts: aci_host
   gather_facts: false
   # This makes Ansible look for the collection without depending on cfg file
   collections:
@@ -9,9 +11,9 @@
   tasks:
     - name: Delete tenant on ACI
       cisco.aci.aci_tenant:
-        host: "{{ ansible_host }}"
-        username: "{{ username }}" 
-        password: "{{ password }}"
+        host: "{{ aci_ip }}"
+        username: "{{ aci_username }}" 
+        password: "{{ aci_password }}"
         tenant: "Tenant_Ansible_AWX"
         state: absent
         validate_certs: false
