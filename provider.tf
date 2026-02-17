@@ -2,7 +2,7 @@ terraform {
   required_providers {
     aci = {
       source  = "CiscoDevNet/aci"
-      version = ">= 2.10.0" # Es buena práctica fijar una versión
+      version = ">= 2.10.0"
     }
   }
 
@@ -19,4 +19,9 @@ provider "aci" {
   password = var.apic_password
   url      = "https://38.25.68.158:7443"
   insecure = true
+}
+
+variable "apic_password" {
+  type      = string
+  sensitive = true
 }
